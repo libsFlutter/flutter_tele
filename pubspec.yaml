@@ -1,5 +1,6 @@
 name: flutter_tele
 description: "Telecommunication module based on InCall and android.telecom for Flutter"
+license: NativeMindNONC
 version: 2.0.5+105
 homepage: https://github.com/telefon-one/flutter_tele
 
@@ -11,8 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
-  flutter_dialer:
-    path: ../flutter_dialer
+  flutter_dialer: ^2.0.0+101
 
 dev_dependencies:
   flutter_test:
