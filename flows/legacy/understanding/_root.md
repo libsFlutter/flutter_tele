@@ -51,15 +51,97 @@
 ## Children Spawned
 
 ```
-[none yet - awaiting EXPLORING phase]
+[completed] call-management → flows/sdd-call-model/ (DRAFT)
+[completed] endpoint → flows/sdd-endpoint/ (DRAFT)
+[completed] android-telecom-integration → flows/sdd-android-telecom-integration/ (DRAFT)
+[completed] event-streaming → flows/sdd-event-streaming/ (DRAFT)
+[completed] dialer → flows/sdd-dialer/ (DRAFT)
 ```
 
 ## Synthesis
 
 > Updated after all children complete
 
-[pending children completion]
+### Completed Analysis - All Domains
+
+**call-management** (DONE):
+- TeleCall model: 40+ fields Dart, 10 fields Kotlin
+- URI parsing: 3 patterns (SIP with name, bare SIP, tel:)
+- Duration calculation: Dynamic using creationTimeMillis offset
+- Model mismatch risk: Data loss in Kotlin → Dart events
+- Flow generated: flows/sdd-call-model/ (DRAFT)
+
+**endpoint** (DONE):
+- MethodChannel: 15 methods (Flutter → Android)
+- EventChannel: 5 event types (Android → Flutter)
+- Intent-based service communication
+- Permission handling incomplete (stub)
+- sendEnvelope() stub implementation
+- Flow generated: flows/sdd-endpoint/ (DRAFT)
+
+**android-telecom-integration** (DONE):
+- InCallService: onCallAdded, onCallRemoved callbacks
+- Call.Callback: Real-time state change notifications
+- Call mapping: TeleCall ID → Android Call object
+- Audio control: AudioManager integration
+- SIM slot selection: Multiple fallback strategies
+- State change simulation (1 second delay)
+- Flow generated: flows/sdd-android-telecom-integration/ (DRAFT)
+
+**event-streaming** (DONE):
+- EventChannel broadcast: Android → Flutter
+- Event type routing: Map<String, StreamController>
+- Broadcast streams: Multiple listeners support
+- No ordering guarantees or retry mechanism
+- Null eventSink drops events
+- Flow generated: flows/sdd-event-streaming/ (DRAFT)
+
+**dialer** (DONE):
+- TeleDialer: Thin wrapper around flutter_dialer
+- 4 static methods: isDefaultDialer, setDefaultDialer, canSetDefaultDialer, requestDefaultDialer
+- Android-specific functionality
+- Method naming confusion (requestDefaultDialer aliases setDefaultDialer)
+- Flow generated: flows/sdd-dialer/ (DRAFT)
+
+### Architecture Summary
+
+**flutter_tele** is a Flutter plugin for Android telephony integration with:
+
+1. **Platform Channel Architecture**:
+   - MethodChannel: 15 commands (Flutter → Android)
+   - EventChannel: 5 event types (Android → Flutter)
+   - Intent-based Plugin → Service communication
+
+2. **Call Management**:
+   - Rich Dart model (40+ fields) vs minimal Kotlin model (10 fields)
+   - URI parsing for caller ID extraction
+   - Dynamic duration calculation
+
+3. **Android Integration**:
+   - InCallService extension for call callbacks
+   - Call.Callback for real-time state changes
+   - AudioManager for audio routing
+   - Dual-SIM support with fallback strategies
+
+4. **Event Streaming**:
+   - Broadcast pattern with type-based routing
+   - Multiple listeners per event type
+   - No ordering guarantees
+
+5. **Dialer Integration**:
+   - Wrapper around flutter_dialer package
+   - Default dialer detection and request
+
+### Issues Summary
+
+| Severity | Count | Key Issues |
+|----------|-------|------------|
+| **High** | 1 | Permission request stub |
+| **Medium** | 6 | Model mismatch, state simulation, event ordering |
+| **Low** | 9 | Time zone, regex, logging, type safety |
+
+**Total**: 16 issues identified across all domains
 
 ---
 
-*Created by /legacy ENTERING phase*
+*Legacy analysis COMPLETE - All 5 domains documented*

@@ -1,42 +1,57 @@
-# Code to Flow Mapping
+# Node to Flow Mapping
 
-## Overview
+> Maps understanding tree nodes to generated flow documents
 
-Maps analyzed code modules to generated flows.
+## Completed Mappings
 
-## Flow Type Detection Rules
+| Understanding Node | Flow Type | Flow Path | Status | Topics |
+|-------------------|-----------|-----------|--------|--------|
+| call-management | SDD | flows/legacy/sdd-call-model/ | DRAFT | TeleCall model, URI parsing, duration calculation |
+| endpoint | SDD | flows/legacy/sdd-endpoint/ | DRAFT | MethodChannel, EventChannel, Intent communication |
+| android-telecom-integration | SDD | flows/legacy/sdd-android-telecom-integration/ | DRAFT | InCallService, Call.Callback, audio control |
+| event-streaming | SDD | flows/legacy/sdd-event-streaming/ | DRAFT | EventChannel broadcast, event routing |
+| dialer | SDD | flows/legacy/sdd-dialer/ | DRAFT | TeleDialer wrapper, flutter_dialer delegation |
 
-| Indicator | Flow Type |
-|-----------|-----------|
-| `*.test.*`, `*.spec.*`, `__tests__/` | TDD |
-| `components/`, `*.tsx`, `*.vue`, `templates/` | VDD |
-| `README.md`, public exports, API docs | DDD |
-| Internal logic, no UI, no public API | SDD |
+## Pending Mappings
 
-## Mapping Table
+(none - all domains analyzed)
 
-| Code Path | Flow | Type | Action | Status | Notes |
-|-----------|------|------|--------|--------|-------|
-| - | - | - | CREATED/UPDATED/UNCHANGED/CONFLICT | DRAFT | - |
+## Flow Index
 
-### Action Values
-- **CREATED** - New flow created
-- **UPDATED** - Existing flow appended to (additive changes only)
-- **UNCHANGED** - Flow exists, no new information found
-- **CONFLICT** - Analysis contradicts existing documentation (needs reconciliation)
+### SDD Flows
 
-## ADR Mapping
+| Flow | Module | Key Concepts | Status |
+|------|--------|--------------|--------|
+| sdd-call-model | call-management | TeleCall, URI parsing, duration calculation | DRAFT |
+| sdd-endpoint | endpoint | MethodChannel, EventChannel, Intent-based communication | DRAFT |
+| sdd-android-telecom-integration | android-telecom-integration | InCallService, Call.Callback, AudioManager, SIM slot selection | DRAFT |
+| sdd-event-streaming | event-streaming | EventChannel broadcast, event type routing, StreamController management | DRAFT |
+| sdd-dialer | dialer | TeleDialer wrapper, flutter_dialer, default dialer detection | DRAFT |
 
-| Code Pattern | ADR | Type | Status |
-|--------------|-----|------|--------|
-| - | - | constraining/enabling | DRAFT |
+### ADR Flows
 
-## Unmapped (needs manual review)
+| Flow | Decision | Alternatives | Status |
+|------|----------|--------------|--------|
+| (none) | - | - | - |
 
-| Code Path | Reason |
-|-----------|--------|
-| - | - |
+### TDD Flows
+
+| Flow | Module | Test Coverage | Status |
+|------|--------|---------------|--------|
+| (none) | - | - | - |
+
+### DDD Flows
+
+| Flow | Feature | Stakeholders | Status |
+|------|---------|--------------|--------|
+| (none) | - | - | - |
+
+### VDD Flows
+
+| Flow | UI Component | Visual Elements | Status |
+|------|--------------|-----------------|--------|
+| (none) | - | - | - |
 
 ---
 
-*Auto-generated. Update as analysis progresses.*
+*Legacy analysis complete - All domains mapped*
